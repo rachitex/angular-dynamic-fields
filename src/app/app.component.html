@@ -7,20 +7,24 @@
             <input matInput formControlName="employeeName" placeholder="Enter Employee Name"/>
       </mat-form-field><br/><br/>
       <mat-form-field>
-            <input  matInput type="number" formControlName="resourceQuantity" [(ngModel)]="resourceQuantity" placeholder="Enter Resource Quantity" (change)="somethingChanged()"/> 
+            <input  matInput type="number" formControlName="resourceQuantity" placeholder="Enter Resource Quantity"/> 
         </mat-form-field><br/><br/>
            <div>
-                <ul>
-                    <li *ngFor="let item of counter(resourceQuantity)">
-                        <input  matInput type="number" placeholder="Enter Resource Number" formControlName="resourceId"/> 
+                <ul formArrayName="resources">
+                    <li *ngFor="let item of resources.controls; let i = index">
+                      <span [formGroupName]="i">
+                        <input  matInput type="number" placeholder="Enter Resource Number"
+                        formControlName="id"/> 
+                      </span>
                     </li>       
                 </ul>
             </div>
         <div fxLayout>
             <div>
                 <button
-                    mat-raised-button
-                    color="accent" [disabled] = "form.invalid">Save
+                  mat-raised-button
+                  color="accent"
+                  [disabled]="form.invalid">Save
                 </button>
             </div>
         </div>
